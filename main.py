@@ -21,12 +21,11 @@ aws_access_key_id = os.environ.get('AWS_ACCESS_KEY_ID')
 aws_secret_access_key = os.environ.get('AWS_SECRET_ACCESS_KEY')
 aws_region = os.environ.get('AWS_REGION', 'ap-south-1')
 
-try:
-    dynamodb = boto3.resource('dynamodb',
+dynamodb = boto3.resource('dynamodb',
                           region_name=aws_region,
                           aws_access_key_id=aws_access_key_id,
                           aws_secret_access_key=aws_secret_access_key)
-    def upload_item_to_dynamodb(table_name, item):
+def upload_item_to_dynamodb(table_name, item):
     table = dynamodb.Table(table_name)
 
       
@@ -35,10 +34,6 @@ try:
         print(f"Item uploaded successfully: {response}")
     except ClientError as e:
         print(f"Error uploading item: {e.response['Error']['Message']}")
-
-except:
-    pass
-
 
 
 # Configure Streamlit page
